@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /UserSettings
 *.sln
 *.csproj
+*.vsconfig
