@@ -772,10 +772,10 @@
     "m_Guid": {
         "m_GuidSerialized": "5b2de51a-8e84-43ca-b46b-cf9fe52e4d74"
     },
-    "m_Name": "CardBorder",
+    "m_Name": "CardFront",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "CardBorder",
-    "m_DefaultReferenceName": "_CardBorder",
+    "m_RefNameGeneratedByDisplayName": "CardFront",
+    "m_DefaultReferenceName": "_CardFront",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -1394,7 +1394,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "c8197796bef64e54bd28759e9fb38c58",
     "m_Id": 0,
-    "m_DisplayName": "CardBorder",
+    "m_DisplayName": "CardFront",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
