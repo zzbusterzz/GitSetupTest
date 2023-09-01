@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,10 +20,27 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private float _visibilityDuration = 4;
+    [SerializeField]
+    private float _gameTimer = 60;
+
+    [SerializeField]
+    private UnityEvent OnGameBegan;
+    [SerializeField]
+    private UnityEvent OnVictory;
+    [SerializeField]
+    private UnityEvent OnLose;
+
+    [SerializeField]
+    private UnityEvent OnCorrectGuess;
+    [SerializeField]
+    private UnityEvent OnWrongGuess;
     #endregion
 
     #region PRIVATE_FIELDS
     private int _score = 0;
+    private float _currentTimer = 0;
+    private bool _isGameOnGoing = false;
+
     private List<Vector3> _gridPosition;
     private List<Card> _activeCards;
     private List<Card> _inactiveCards;
@@ -47,6 +65,22 @@ public class GameManager : MonoBehaviour
     {
         Card.CurrentCardOpened -= OnCardOpen;
     }
+
+    private void Update()
+    {
+        if (_isGameOnGoing)
+        {
+            if(_currentTimer < _gameTimer)
+            {
+                _currentTimer += Time.deltaTime;
+            }
+            else
+            {
+                _isGameOnGoing = false;
+                Loss();
+            }
+        }
+    }
     #endregion
 
     #region PUBLIC_FUNCTIONS
@@ -58,12 +92,19 @@ public class GameManager : MonoBehaviour
             CreateGrid();
             GenerateCards();
             StartCoroutine(HideCardsAfterDelay());
+            _isGameOnGoing=true;
+            _currentTimer = 0;
+            OnGameBegan.Invoke();
+        }
+        else
+        {
+            Debug.LogError("Cannot play game as odd number of cards detected");
         }
     }
 
     public void Restart()
     {
-
+        
     }
     #endregion
 
@@ -147,6 +188,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            //We can use this option to reveal later on other cards as help to player
+            //as sort of powerup to reveal present cards
             for (int i = 0; i < _activeCards.Count; i++)
             {
                 _activeCards[i].RevealCard();
@@ -164,8 +207,8 @@ public class GameManager : MonoBehaviour
         {
             if(_previousClickedCard.CurentCardIndex == currCard.CurentCardIndex)
             {
+                OnCorrectGuess?.Invoke();
                 _score++;
-                //Play clear audio
 
                 _previousClickedCard.gameObject.SetActive(false);
                 currCard.gameObject.SetActive(false);
@@ -175,9 +218,15 @@ public class GameManager : MonoBehaviour
                 
                 _inactiveCards.Add(currCard);
                 _inactiveCards.Add(_previousClickedCard);
+
+                if(_activeCards.Count == 0)
+                {
+                    Victory();
+                }
             }
             else
             {
+                OnWrongGuess?.Invoke();
                 _previousClickedCard.HideCard();
                 currCard.HideCard();
             }
@@ -185,9 +234,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void CheckForVictory()
+    void Victory()
     {
+        OnVictory.Invoke();
+    }
 
+    void Loss()
+    {
+        for(int i = 0; i < _activeCards.Count; i++)
+        {
+            Card c = _activeCards[i];
+            c.gameObject.SetActive(false);
+            _inactiveCards.Add(c);
+        }
+
+        _activeCards.Clear();
+        OnLose.Invoke();
     }
     #endregion
 }

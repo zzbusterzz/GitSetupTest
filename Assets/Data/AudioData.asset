@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3f35442be4d4445bb1263c0aeaad79, type: 3}
+  m_Name: AudioData
+  m_EditorClassIdentifier: 
+  MusicData:
+  - IsLoop: 0
+    Clip: {fileID: 8300000, guid: ca2515bc78da2ad4a94c2eb52ce57b4d, type: 3}
+  - IsLoop: 0
+    Clip: {fileID: 8300000, guid: d333b29c9b0596d4eb7236fc0833c8bd, type: 3}
+  - IsLoop: 1
+    Clip: {fileID: 8300000, guid: 911952b1be784fb4c8e515d919b1fced, type: 3}
+  CardFlip: {fileID: 8300000, guid: 1d8d55922b119a34985b6275b3dc8599, type: 3}
+  CardPairSuccess: {fileID: 8300000, guid: 9f1042128e0e2634fa41175497a0ab81, type: 3}
+  CardPairFail: {fileID: 8300000, guid: b6806cf911bcf154e8bceacaca411e23, type: 3}

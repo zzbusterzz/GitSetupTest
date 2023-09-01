@@ -38,7 +38,7 @@ Material:
     - _CardFront:
         m_Texture: {fileID: 2800000, guid: f6c2d98d1986c8847b4a7f134ccf3c81, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0.153, y: 0.735}
+        m_Offset: {x: 0.612, y: 0.735}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}

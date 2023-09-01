@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 public class Card : MonoBehaviour, IPointerClickHandler
 {
     private const float _flipTime = 1;
+
+    public static Action OnCardFlipBegan;
     public static Action<Card> CurrentCardOpened;
 
     [SerializeField]
@@ -44,10 +46,9 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //Debug.Log($"Clicked {_curentCardIndex}");
-        //CurrentCardClick?.Invoke(this);
         if (_isHidden && _animCoroutine == null)
         {
+            OnCardFlipBegan?.Invoke();
             _animCoroutine = StartCoroutine(AnimCoroutine(Constants.QInvertedRot, Constants.QRevealRot, Card.CurrentCardOpened));
             _isHidden = false;
         }
@@ -81,6 +82,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
     {
         if (!_isHidden)
         {
+            OnCardFlipBegan?.Invoke();
             _animCoroutine = StartCoroutine(AnimCoroutine(_transform.rotation, Constants.QInvertedRot));
             _isHidden = true;
         }
