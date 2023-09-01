@@ -120,6 +120,22 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OnGridXChange(string value)
+    {
+        if(int.TryParse(value, out int result))
+        {
+            _gridManager.UpdateGridSize(result, _gridManager.GridSize.y);
+        }
+    }
+
+    public void OnGridYChange(string value)
+    {
+        if (int.TryParse(value, out int result))
+        {
+            _gridManager.UpdateGridSize(_gridManager.GridSize.x, result);
+        }
+    }
     #endregion
 
     #region PRIVATE_FUNCTIONS

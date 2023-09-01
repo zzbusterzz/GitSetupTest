@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class GridManager
@@ -11,16 +12,20 @@ public class GridManager
     [SerializeField]
     private Vector2 _gridDimensionsHalf;
 
+    [SerializeField]
+    private UnityEvent<Vector2Int> _onGridSizeUpdated;
+
 #if UNITY_EDITOR
     [SerializeField]
     private bool _generateDebugTransformForGridPoint;
-    #endif
+#endif
     #endregion
 
     #region PUBLIC_GETTERS
-    public int TotalItems => _gridSize.x* _gridSize.y;
+    public int TotalItems => _gridSize.x * _gridSize.y;
     public float Cardscale { get => cardscale; set => cardscale = value; }
     public Vector2 GridDimensionsHalf { get => _gridDimensionsHalf; }
+    public Vector2Int GridSize { get => _gridSize; }
     #endregion
 
     #region PRIVATE_FIELDS
@@ -36,8 +41,9 @@ public class GridManager
     public void Init()
     {
         cachedMainCam = Camera.main;
-        _gridPosition = new List<Vector3>();        
+        _gridPosition = new List<Vector3>();
         GenerateGridStartPoint(out cardscale);
+        _onGridSizeUpdated?.Invoke(_gridSize);
     }
 
     public Vector3 GetGridPosition()
@@ -63,6 +69,19 @@ public class GridManager
                     gridStartVector.y - (j * dimHeight),
                     gridStartVector.z));
             }
+        }
+    }
+
+    public void UpdateGridSize(int x, int y)
+    {
+        if(_gridSize.x != x || _gridSize.y != y)
+        {
+            _gridSize.x = x;
+            _gridSize.y = y;
+
+            GenerateGridStartPoint(out cardscale);
+
+            _onGridSizeUpdated?.Invoke(_gridSize);
         }
     }
     #endregion

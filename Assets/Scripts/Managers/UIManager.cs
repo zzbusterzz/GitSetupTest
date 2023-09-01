@@ -1,3 +1,4 @@
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class UIManager : MonoBehaviour
     private GameObject _menuPanel;
     [SerializeField]
     private GameObject _gamePanel;
+    [SerializeField]
+    private GameObject _settingsPanel;
 
     [SerializeField]
     private GameObject _newGame;
@@ -19,17 +22,24 @@ public class UIManager : MonoBehaviour
     private GameObject _loadGame;
 
     [SerializeField]
+    private TMP_InputField _gridX;
+    [SerializeField]
+    private TMP_InputField _gridY;
+
+
+    [SerializeField]
     private TextMeshProUGUI _score;
     [SerializeField]
     private TextMeshProUGUI _timer;
     #endregion
 
     private bool _isGameToLoadAvailable = false;
-
+    private Vector2Int _curentGridSize; 
     #region UNITY_FUNCTIONS
     private void Start()
     {
         _gamePanel.SetActive(false);
+        _settingsPanel.SetActive(false);
         _menuPanel.SetActive(true);
 
         _resume.SetActive(false);
@@ -41,6 +51,11 @@ public class UIManager : MonoBehaviour
     public void SetLoadgameButtonStatus(bool status)
     {
         _isGameToLoadAvailable = status;
+    }
+
+    public void UpdateGridSize(Vector2Int vector2Int)
+    {
+        _curentGridSize = vector2Int;
     }
 
     public void OnGameStartOrLoad()
@@ -78,6 +93,24 @@ public class UIManager : MonoBehaviour
         _menuPanel.SetActive(false);
     }
 
+    #region SETTINGS_FUNCTIONS
+    public void OnSettings()
+    {
+        _gamePanel.SetActive(false);
+        _menuPanel.SetActive(false);
+        _settingsPanel.SetActive(true);
+        _gridX.text = _curentGridSize.x + "";
+        _gridY.text = _curentGridSize.y + "";
+    }
+
+    public void OnSettingsBack()
+    {
+        _menuPanel.SetActive(true);
+        _settingsPanel.SetActive(false);
+    }
+    #endregion
+
+    #region GAMEPLAY_UI
     public void OnScoreUpdated(int score)
     {
         _score.text = score + "";
@@ -87,5 +120,7 @@ public class UIManager : MonoBehaviour
     {
         _timer.text = Mathf.CeilToInt(time) + "";
     }
+    #endregion
+
     #endregion
 }
