@@ -28,6 +28,8 @@ public class GridManager
     private Vector3 _gridStart;
     private float cardscale;
     private Camera cachedMainCam;
+
+    private float xPoint = Screen.width * (0.01f * Constants.GridStartPercent);
     #endregion
 
     #region PUBLIC_FUNCTIONS
@@ -69,7 +71,6 @@ public class GridManager
     private void GenerateGridStartPoint(out float cardScale, float scale = 1)
     {
         cardScale = scale;
-        float xPoint = Screen.width * (0.01f * Constants.GridStartPercent);
 
         float avilAreaWidth = Screen.width - xPoint;
         float availAreaHeight = Screen.height;
