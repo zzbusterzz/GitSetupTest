@@ -66,7 +66,7 @@ public class GridManager
     #endregion
 
     #region PRIVATE_FUNCTIONS
-    private void GenerateGridStartPoint(out float cardScale, float scale = 1 )
+    private void GenerateGridStartPoint(out float cardScale, float scale = 1)
     {
         cardScale = scale;
         float xPoint = Screen.width * (0.01f * Constants.GridStartPercent);
@@ -80,12 +80,38 @@ public class GridManager
         Vector3 origin = cachedMainCam.WorldToScreenPoint(Vector3.zero);
         Vector3 extent = cachedMainCam.WorldToScreenPoint(new Vector3(xDimension, yDimension, 0));
 
-        float totalWidth = _gridSize.x  * (Mathf.Abs(origin.x - extent.x));
-        float totalHeight = _gridSize.y  * (Mathf.Abs(origin.y - extent.y));
+        float totalWidth = _gridSize.x * (Mathf.Abs(origin.x - extent.x));
+        float totalHeight = _gridSize.y * (Mathf.Abs(origin.y - extent.y));
 
-        //If the area width and area height is in the req 
-        if (totalWidth <= avilAreaWidth && totalHeight <= availAreaHeight)
+
+        float widthAspect = totalWidth / avilAreaWidth;
+        float heightAspect = totalHeight / availAreaHeight;
+
+        if (widthAspect > 1 || heightAspect > 1)
         {
+            if (widthAspect > heightAspect)
+            {
+                GenerateGridStartPoint(out cardScale, 1 + (1 - widthAspect));
+            }
+            else
+            {
+                GenerateGridStartPoint(out cardScale, 1 + (1 - heightAspect));
+            }
+        }
+        else if (widthAspect < 0.85f && heightAspect < 0.85f)
+        {
+            if (widthAspect > heightAspect)
+            {
+                GenerateGridStartPoint(out cardScale, 1/widthAspect);
+            }
+            else
+            {
+                GenerateGridStartPoint(out cardScale, 1/heightAspect);
+            }
+        }
+        else
+        {
+            //If the area width and area height is in the req 
             float xpadding = Mathf.Abs(totalWidth - avilAreaWidth);
             float ypadding = Mathf.Abs(totalHeight - availAreaHeight);
 
@@ -103,19 +129,6 @@ public class GridManager
 
             }
 #endif
-        }
-        else
-        {
-            float widthAspect = totalWidth / avilAreaWidth;
-            float heightAspect = totalHeight / availAreaHeight;
-            if (widthAspect > heightAspect)
-            {
-                GenerateGridStartPoint(out cardScale, 1 + (1 - widthAspect));
-            }
-            else
-            {
-                GenerateGridStartPoint(out cardScale, 1 + (1 - heightAspect));
-            }
         }
     }
     #endregion
