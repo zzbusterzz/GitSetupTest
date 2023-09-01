@@ -52,8 +52,7 @@ MonoBehaviour:
     _gridDimensionsHalf: {x: 0.6, y: 0.85}
     _generateDebugTransformForGridPoint: 0
   _flippingCardPrefab: {fileID: 8714813683635605138, guid: 17fae3004faff6741aa1cef10284f1d3, type: 3}
-  _gridStart: {fileID: 0}
-  _visibilityDuration: 7
+  _visibilityDuration: 4
   _gameTimer: 60
   OnGameBegan:
     m_PersistentCalls:

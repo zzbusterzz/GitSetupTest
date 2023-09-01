@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
     private UnityEvent<int> OnScoreUpdated;
     [SerializeField]
     private UnityEvent<float> OnTimerUpdated;
+
+    [SerializeField]
+    private UnityEvent<bool> IsGameDataAvailable;
+
     #endregion
 
     #region PRIVATE_FIELDS
@@ -46,14 +50,21 @@ public class GameManager : MonoBehaviour
     private int totalCards;
 
     private Card _previousClickedCard = null;
+    private PersistanceManager _persistanceManager;
     #endregion
 
     #region UNITY_FUNCTIONS
-    private void Start()
+    private void Awake()
     {
+        _persistanceManager = new PersistanceManager();
+        IsGameDataAvailable?.Invoke(_persistanceManager.HasGame());
+
         _activeCards = new List<Card>();
         _inactiveCards = new List<Card>();
+    }
 
+    private void Start()
+    {
         Card.CurrentCardOpened += OnCardOpen;
         _gridManager.Init();
     }
@@ -91,6 +102,7 @@ public class GameManager : MonoBehaviour
         totalCards = _gridManager.TotalItems;
         if (totalCards % 2 == 0)
         {
+            ClearCurrentData();
             _gridManager.CreateGrid();
             GenerateCards();
             StartCoroutine(HideCardsAfterDelay());
@@ -141,12 +153,12 @@ public class GameManager : MonoBehaviour
 
             Vector3 pos = _gridManager.GetGridPosition();
             Card c = GetCardInstance(pos, _gridManager.Cardscale);
-            c.SetOffset(xOffset, yOffset);
+            c.SetOffset(xOffset, yOffset, number);
             _activeCards.Add(c);
 
             pos = _gridManager.GetGridPosition();
             c = GetCardInstance(pos, _gridManager.Cardscale);
-            c.SetOffset(xOffset, yOffset);
+            c.SetOffset(xOffset, yOffset, number);
             _activeCards.Add(c);
         }
     }
@@ -289,15 +301,82 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Loss()
     {
-        for(int i = 0; i < _activeCards.Count; i++)
+        ClearActiveCards();
+        OnLose.Invoke();
+    }
+
+    private void ClearActiveCards()
+    {
+        for (int i = 0; i < _activeCards.Count; i++)
         {
+            _activeCards[i].StopAllCoroutines();
             ReturnCard(_activeCards[i]);
         }
         _activeCards.Clear();
-
-        OnLose.Invoke();
     }
+
+    private void ClearCurrentData()
+    {
+        if (_isGameOnGoing)
+        {
+            _isGameOnGoing = false;
+            _currentTimer = 0;
+            ClearActiveCards();
+        }
+    }
+
     #endregion
 
+
+    #region PERSISTANCY
+    public void SaveGame()
+    {
+        int[] cardId = new int[_activeCards.Count];
+        Vector3[] cardPos = new Vector3[_activeCards.Count];
+
+        for(int i = 0; i < _activeCards.Count; i++)
+        {
+            cardId[i] = _activeCards[i].CurentCardIndex;
+            cardPos[i] = _activeCards[i].CachedTransform.position;
+        }
+
+        _persistanceManager.SaveGame(_score,
+                                     _pairStreak,
+                                     cardId,
+                                     cardPos,
+                                     _currentTimer,
+                                     _isGameOnGoing);
+
+        IsGameDataAvailable?.Invoke(true);
+    }
+
+    public void LoadGame()
+    {
+        ClearCurrentData();
+        if (_persistanceManager.HasGame())
+        {
+            LevelStorage levelStorage = _persistanceManager.LoadGame();
+
+            for (int i = 0; i < levelStorage.CardID.Length; i++)
+            {
+                int xOffset = levelStorage.CardID[i] % (Constants.MaxAllowedCards.x - 1);
+                int yOffset = Mathf.FloorToInt(levelStorage.CardID[i] / Constants.MaxAllowedCards.x);
+
+                Card c = GetCardInstance(levelStorage.CardPositions[i], _gridManager.Cardscale);
+                c.SetOffset(xOffset, yOffset, levelStorage.CardID[i]);
+                _activeCards.Add(c);
+                c.HideCardInstant();
+            }
+
+            _score = levelStorage.Score;
+            _pairStreak = levelStorage.PairStreak;
+            _currentTimer = levelStorage.CurrentTimer;
+            _isGameOnGoing = levelStorage.IsGameOnGoing;
+            OnScoreUpdated?.Invoke(_score);
+            OnGameBegan.Invoke();
+        }
+
+    }
+    #endregion
     #endregion
 }

@@ -31,6 +31,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
     #region GETTERS
     public int CurentCardIndex { get => _curentCardIndex; }
     public bool IsAnimating { get => _animCoroutine != null; }
+    public Transform CachedTransform { get => _cachedTransform; }
     #endregion
 
     #region UNITY_FUNCTIONS
@@ -44,9 +45,9 @@ public class Card : MonoBehaviour, IPointerClickHandler
     #endregion
 
     #region PUBLIC_FUNCTIONS
-    public void SetOffset(int xOffset, int yOffset)
+    public void SetOffset(int xOffset, int yOffset, int index)
     {
-        _curentCardIndex = (Constants.MaxAllowedCards.x * xOffset) + (Constants.MaxAllowedCards.y * yOffset);
+        _curentCardIndex = index;
         //matBlock.SetVector(_matTexStr, new Vector2(
         //    _materialTexOffset.x * xOffset,
         //    _materialTexOffset.y * yOffset));
@@ -84,6 +85,12 @@ public class Card : MonoBehaviour, IPointerClickHandler
             _animCoroutine = StartCoroutine(AnimCoroutine(_cachedTransform.rotation, Constants.QInvertedRot));
             _isHidden = true;
         }
+    }
+
+    public void HideCardInstant()
+    {
+        _isHidden = true;
+        _cachedTransform.rotation = Constants.QInvertedRot;
     }
 
     public void SetCard(Vector3 pos, bool visibility, float scale = 1)

@@ -15,13 +15,16 @@ public class UIManager : MonoBehaviour
     private GameObject _quit;
     [SerializeField]
     private GameObject _resume;
-
+    [SerializeField]
+    private GameObject _loadGame;
 
     [SerializeField]
     private TextMeshProUGUI _score;
     [SerializeField]
     private TextMeshProUGUI _timer;
     #endregion
+
+    private bool _isGameToLoadAvailable = false;
 
     #region UNITY_FUNCTIONS
     private void Start()
@@ -30,11 +33,17 @@ public class UIManager : MonoBehaviour
         _menuPanel.SetActive(true);
 
         _resume.SetActive(false);
+        _loadGame.SetActive(_isGameToLoadAvailable);
     }
     #endregion
 
     #region PUBLIC_FUNCTIONS
-    public void OnGameStart()
+    public void SetLoadgameButtonStatus(bool status)
+    {
+        _isGameToLoadAvailable = status;
+    }
+
+    public void OnGameStartOrLoad()
     {
         _gamePanel.SetActive(true);
         _menuPanel.SetActive(false);
@@ -44,18 +53,29 @@ public class UIManager : MonoBehaviour
     {
         _gamePanel.SetActive(false);
         _menuPanel.SetActive(true);
+        _loadGame.SetActive(_isGameToLoadAvailable);
     }
 
     public void OnGameWon()
     {
         _gamePanel.SetActive(false);
         _menuPanel.SetActive(true);
+        _loadGame.SetActive(_isGameToLoadAvailable);
     }
 
     public void OnMainMenuClick()
     {
+        _resume.SetActive(true);
         _gamePanel.SetActive(false);
         _menuPanel.SetActive(true);
+        _loadGame.SetActive(_isGameToLoadAvailable);
+    }
+
+    public void OnResumeClick()
+    {
+        _resume.SetActive(false);
+        _gamePanel.SetActive(true);
+        _menuPanel.SetActive(false);
     }
 
     public void OnScoreUpdated(int score)
