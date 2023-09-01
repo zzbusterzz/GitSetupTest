@@ -327,7 +327,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-
     #region PERSISTANCY
     public void SaveGame()
     {
@@ -345,6 +344,7 @@ public class GameManager : MonoBehaviour
                                      cardId,
                                      cardPos,
                                      _currentTimer,
+                                     _gridManager.Cardscale,
                                      _isGameOnGoing);
 
         IsGameDataAvailable?.Invoke(true);
@@ -356,6 +356,7 @@ public class GameManager : MonoBehaviour
         if (_persistanceManager.HasGame())
         {
             LevelStorage levelStorage = _persistanceManager.LoadGame();
+            _gridManager.Cardscale = levelStorage.CardScale;
 
             for (int i = 0; i < levelStorage.CardID.Length; i++)
             {

@@ -19,7 +19,7 @@ public class GridManager
 
     #region PUBLIC_GETTERS
     public int TotalItems => _gridSize.x* _gridSize.y;
-    public float Cardscale { get => cardscale; }
+    public float Cardscale { get => cardscale; set => cardscale = value; }
     public Vector2 GridDimensionsHalf { get => _gridDimensionsHalf; }
     #endregion
 

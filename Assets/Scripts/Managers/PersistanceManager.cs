@@ -22,6 +22,7 @@ public class PersistanceManager
         int[] cardID,
         Vector3[] cardPositions,
         float gameTimer,
+        float cardScale,
         bool isGameOngoing)
     {
         LevelStorage levelStorage = new LevelStorage();
@@ -31,6 +32,7 @@ public class PersistanceManager
         levelStorage.CardPositions = cardPositions;
         levelStorage.CurrentTimer = gameTimer;
         levelStorage.IsGameOnGoing = isGameOngoing;
+        levelStorage.CardScale = cardScale;
 
         PlayerPrefs.SetString(Constants.key, JsonUtility.ToJson(levelStorage));
         PlayerPrefs.Save();

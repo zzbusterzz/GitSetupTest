@@ -8,5 +8,6 @@ public class LevelStorage
     public int[] CardID;
     public Vector3[] CardPositions;
     public float CurrentTimer;
+    public float CardScale;
     public bool IsGameOnGoing;
 }
