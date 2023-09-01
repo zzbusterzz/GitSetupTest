@@ -25,6 +25,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
     private Coroutine _animCoroutine = null;
     private Transform _cachedTransform;
     private GameObject _cachedGO;
+    private Vector3 _cachedOrigScale;
     #endregion
 
     #region GETTERS
@@ -38,6 +39,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
         //matBlock = new MaterialPropertyBlock();
         _cachedTransform = transform;
         _cachedGO = gameObject;
+        _cachedOrigScale = transform.localScale;
     }
     #endregion
 
@@ -84,10 +86,12 @@ public class Card : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetCard(Vector3 pos, bool visibility)
+    public void SetCard(Vector3 pos, bool visibility, float scale = 1)
     {
         _cachedGO.SetActive(visibility);
         _cachedTransform.position = pos;
+        _cachedTransform.rotation = Quaternion.identity;
+        _cachedTransform.localScale = new Vector3(_cachedOrigScale.x * scale, _cachedOrigScale.y * scale, _cachedOrigScale.z);
     }
     #endregion
 

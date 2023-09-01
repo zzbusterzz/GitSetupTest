@@ -11,7 +11,7 @@ public class GridManager
     [SerializeField]
     private Vector2 _gridDimensionsHalf;
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [SerializeField]
     private bool _generateDebugTransformForGridPoint;
     #endif
@@ -19,18 +19,23 @@ public class GridManager
 
     #region PUBLIC_GETTERS
     public int TotalItems => _gridSize.x* _gridSize.y;
+    public float Cardscale { get => cardscale; }
+    public Vector2 GridDimensionsHalf { get => _gridDimensionsHalf; }
     #endregion
 
     #region PRIVATE_FIELDS
     private List<Vector3> _gridPosition;
     private Vector3 _gridStart;
+    private float cardscale;
+    private Camera cachedMainCam;
     #endregion
 
     #region PUBLIC_FUNCTIONS
     public void Init()
     {
-        _gridPosition = new List<Vector3>();
-        GenerateGridStartPoint();
+        cachedMainCam = Camera.main;
+        _gridPosition = new List<Vector3>();        
+        GenerateGridStartPoint(out cardscale);
     }
 
     public Vector3 GetGridPosition()
@@ -43,9 +48,9 @@ public class GridManager
 
     public void CreateGrid()
     {
-        Vector3 gridStartVector = _gridStart + new Vector3(_gridDimensionsHalf.x, -_gridDimensionsHalf.y, 0);
-        float dimWidth = 2 * _gridDimensionsHalf.x;
-        float dimHeight = 2 * _gridDimensionsHalf.y;
+        Vector3 gridStartVector = _gridStart + new Vector3(_gridDimensionsHalf.x * cardscale, -_gridDimensionsHalf.y * cardscale, 0);
+        float dimWidth = 2 * _gridDimensionsHalf.x * cardscale;
+        float dimHeight = 2 * _gridDimensionsHalf.y * cardscale;
 
         for (int i = 0; i < _gridSize.x; i++)
         {
@@ -54,31 +59,32 @@ public class GridManager
                 _gridPosition.Add(new Vector3(
                     gridStartVector.x + (i * dimWidth),
                     gridStartVector.y - (j * dimHeight),
-                    0));
+                    gridStartVector.z));
             }
         }
     }
     #endregion
 
     #region PRIVATE_FUNCTIONS
-    private void GenerateGridStartPoint()
+    private void GenerateGridStartPoint(out float cardScale, float scale = 1 )
     {
-        Camera mainCam = Camera.main;
+        cardScale = scale;
         float xPoint = Screen.width * (0.01f * Constants.GridStartPercent);
-        _gridStart = mainCam.ScreenToWorldPoint(new Vector3(xPoint, 0, 0));
 
         float avilAreaWidth = Screen.width - xPoint;
         float availAreaHeight = Screen.height;
 
-        Vector3 origin = mainCam.WorldToScreenPoint(Vector3.zero);
-        Vector3 extent = mainCam.WorldToScreenPoint(new Vector3(2f * _gridDimensionsHalf.x, 2f * _gridDimensionsHalf.y, 0));
+        float xDimension = 2f * _gridDimensionsHalf.x * scale;
+        float yDimension = 2f * _gridDimensionsHalf.y * scale;
 
-        float totalWidth = _gridSize.x * (Mathf.Abs(origin.x - extent.x));
-        float totalHeight = _gridSize.y * (Mathf.Abs(origin.y - extent.y));
+        Vector3 origin = cachedMainCam.WorldToScreenPoint(Vector3.zero);
+        Vector3 extent = cachedMainCam.WorldToScreenPoint(new Vector3(xDimension, yDimension, 0));
 
+        float totalWidth = _gridSize.x  * (Mathf.Abs(origin.x - extent.x));
+        float totalHeight = _gridSize.y  * (Mathf.Abs(origin.y - extent.y));
 
         //If the area width and area height is in the req 
-        if (totalWidth < avilAreaWidth && totalHeight < availAreaHeight)
+        if (totalWidth <= avilAreaWidth && totalHeight <= availAreaHeight)
         {
             float xpadding = Mathf.Abs(totalWidth - avilAreaWidth);
             float ypadding = Mathf.Abs(totalHeight - availAreaHeight);
@@ -87,8 +93,8 @@ public class GridManager
                                         availAreaHeight - ypadding / 2,
                                         0);
 
-            _gridStart = mainCam.ScreenToWorldPoint(pos);
-
+            _gridStart = cachedMainCam.ScreenToWorldPoint(pos);
+            _gridStart.z = 0;
 #if UNITY_EDITOR
             if (_generateDebugTransformForGridPoint)
             {
@@ -97,6 +103,19 @@ public class GridManager
 
             }
 #endif
+        }
+        else
+        {
+            float widthAspect = totalWidth / avilAreaWidth;
+            float heightAspect = totalHeight / availAreaHeight;
+            if (widthAspect > heightAspect)
+            {
+                GenerateGridStartPoint(out cardScale, 1 + (1 - widthAspect));
+            }
+            else
+            {
+                GenerateGridStartPoint(out cardScale, 1 + (1 - heightAspect));
+            }
         }
     }
     #endregion

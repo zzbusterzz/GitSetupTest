@@ -13,9 +13,6 @@ public class GameManager : MonoBehaviour
     private Card _flippingCardPrefab;
 
     [SerializeField]
-    private Transform _gridStart;
-
-    [SerializeField]
     private float _visibilityDuration = 4;
     [SerializeField]
     private float _gameTimer = 60;
@@ -143,12 +140,12 @@ public class GameManager : MonoBehaviour
             int yOffset = Mathf.FloorToInt(number / Constants.MaxAllowedCards.x);
 
             Vector3 pos = _gridManager.GetGridPosition();
-            Card c = GetCardInstance(pos);
+            Card c = GetCardInstance(pos, _gridManager.Cardscale);
             c.SetOffset(xOffset, yOffset);
             _activeCards.Add(c);
 
             pos = _gridManager.GetGridPosition();
-            c = GetCardInstance(pos);
+            c = GetCardInstance(pos, _gridManager.Cardscale);
             c.SetOffset(xOffset, yOffset);
             _activeCards.Add(c);
         }
@@ -199,17 +196,20 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region POOLING_FUNCTIONS
-    private Card GetCardInstance(Vector3 pos)
+    private Card GetCardInstance(Vector3 pos, float scale)
     {
-        if(_inactiveCards.Count > 0)
+        Card c;
+        if (_inactiveCards.Count > 0)
         {
-            Card c = _inactiveCards[0];
+            c = _inactiveCards[0];
             _inactiveCards.Remove(c);
-            c.SetCard(pos, true);
+            c.SetCard(pos, true, scale);
             return c;
         }
 
-        return GameObject.Instantiate(_flippingCardPrefab, pos, Quaternion.identity);
+        c = GameObject.Instantiate(_flippingCardPrefab);
+        c.SetCard(pos, true, scale);
+        return c;
     }
 
     private void ReturnCard(Card card)
