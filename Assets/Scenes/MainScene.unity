@@ -3102,6 +3102,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
+      propertyPath: _gridManager._gridSize.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
+      propertyPath: _gridManager._gridSize.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
       propertyPath: OnLose.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}

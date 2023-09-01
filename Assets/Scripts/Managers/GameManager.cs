@@ -7,10 +7,10 @@ public class GameManager : MonoBehaviour
 {
     #region SERIALISED_FIELDS
     [SerializeField]
-    private GridManager _gridManager;
+    private Card _cardPrefab;
 
     [SerializeField]
-    private Card _flippingCardPrefab;
+    private GridManager _gridManager;
 
     [SerializeField]
     private float _visibilityDuration = 4;
@@ -36,36 +36,32 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private UnityEvent<bool> IsGameDataAvailable;
-
     #endregion
 
     #region PRIVATE_FIELDS
     private int _score = 0;
+    private int _pairStreak = 0;
+    private int _totalCards;
     private float _currentTimer = 0;
     private bool _isGameOnGoing = false;
-    private int _pairStreak = 0;
-
-    private List<Card> _activeCards;
-    private List<Card> _inactiveCards;
-    private int totalCards;
 
     private Card _previousClickedCard = null;
     private PersistanceManager _persistanceManager;
+    private CardManager _cardManager;
     #endregion
 
     #region UNITY_FUNCTIONS
     private void Awake()
     {
         _persistanceManager = new PersistanceManager();
+        _cardManager = new CardManager();
         IsGameDataAvailable?.Invoke(_persistanceManager.HasGame());
-
-        _activeCards = new List<Card>();
-        _inactiveCards = new List<Card>();
     }
 
     private void Start()
     {
         Card.CurrentCardOpened += OnCardOpen;
+        _cardManager.Init(_cardPrefab);
         _gridManager.Init();
     }
 
@@ -99,8 +95,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void NewGame()
     {
-        totalCards = _gridManager.TotalItems;
-        if (totalCards % 2 == 0)
+        _totalCards = _gridManager.TotalItems;
+        if (_totalCards % 2 == 0)
         {
             ClearCurrentData();
             _gridManager.CreateGrid();
@@ -137,7 +133,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void GenerateCards()
     {
-        int uniqueCardsToGen = totalCards / 2;
+        int uniqueCardsToGen = _totalCards / 2;
 
         HashSet<int> numbers = new HashSet<int>();
 
@@ -152,14 +148,12 @@ public class GameManager : MonoBehaviour
             int yOffset = Mathf.FloorToInt(number / Constants.MaxAllowedCards.x);
 
             Vector3 pos = _gridManager.GetGridPosition();
-            Card c = GetCardInstance(pos, _gridManager.Cardscale);
+            Card c = _cardManager.GetCardInstance(pos, _gridManager.Cardscale);
             c.SetOffset(xOffset, yOffset, number);
-            _activeCards.Add(c);
 
             pos = _gridManager.GetGridPosition();
-            c = GetCardInstance(pos, _gridManager.Cardscale);
+            c = _cardManager.GetCardInstance(pos, _gridManager.Cardscale);
             c.SetOffset(xOffset, yOffset, number);
-            _activeCards.Add(c);
         }
     }
 
@@ -187,10 +181,10 @@ public class GameManager : MonoBehaviour
                 _pairStreak++;
                 OnScoreUpdated?.Invoke(_score);
 
-                ReturnAlongWithActiveCardList(currCard);
-                ReturnAlongWithActiveCardList(_previousClickedCard);
+                _cardManager.ReturnAlongWithActiveCardList(currCard);
+                _cardManager.ReturnAlongWithActiveCardList(_previousClickedCard);
 
-                if (_activeCards.Count == 0)
+                if (_cardManager.ActiveCardCount == 0)
                 {
                     Victory();
                 }
@@ -203,42 +197,6 @@ public class GameManager : MonoBehaviour
                 currCard.HideCard();
             }
             _previousClickedCard = null;
-        }
-    }
-    #endregion
-
-    #region POOLING_FUNCTIONS
-    private Card GetCardInstance(Vector3 pos, float scale)
-    {
-        Card c;
-        if (_inactiveCards.Count > 0)
-        {
-            c = _inactiveCards[0];
-            _inactiveCards.Remove(c);
-            c.SetCard(pos, true, scale);
-            return c;
-        }
-
-        c = GameObject.Instantiate(_flippingCardPrefab);
-        c.SetCard(pos, true, scale);
-        return c;
-    }
-
-    private void ReturnCard(Card card)
-    {
-        if (!_inactiveCards.Contains(card))
-        {
-            _inactiveCards.Add(card);
-        }
-        card.SetCard(Vector3.zero, false);
-    }
-
-    private void ReturnAlongWithActiveCardList(Card card)
-    {
-        ReturnCard(card);
-        if (_activeCards.Contains(card))
-        {
-            _activeCards.Remove(card);
         }
     }
     #endregion
@@ -257,35 +215,11 @@ public class GameManager : MonoBehaviour
             currentTime += Time.deltaTime;
         }
 
-        ToggleCardReavealState(true);
+        _cardManager.ToggleCardReavealState(true);
 
         yield return new WaitForSeconds(Constants.FlipTime);
 
         _isGameOnGoing = true;
-    }
-
-    /// <summary>
-    /// Toggles weather all cards are revealed or hidden
-    /// </summary>
-    /// <param name="hideCards"></param>
-    private void ToggleCardReavealState(bool hideCards)
-    {
-        if (hideCards)
-        {
-            for (int i = 0; i < _activeCards.Count; i++)
-            {
-                _activeCards[i].HideCard();
-            }
-        }
-        else
-        {
-            //We can use this option to reveal later on other cards as help to player
-            //as sort of powerup to reveal present cards
-            for (int i = 0; i < _activeCards.Count; i++)
-            {
-                _activeCards[i].RevealCard();
-            }
-        }
     }
 
     /// <summary>
@@ -301,18 +235,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Loss()
     {
-        ClearActiveCards();
+        _cardManager.ClearActiveCards();
         OnLose.Invoke();
-    }
-
-    private void ClearActiveCards()
-    {
-        for (int i = 0; i < _activeCards.Count; i++)
-        {
-            _activeCards[i].StopAllCoroutines();
-            ReturnCard(_activeCards[i]);
-        }
-        _activeCards.Clear();
     }
 
     private void ClearCurrentData()
@@ -321,7 +245,7 @@ public class GameManager : MonoBehaviour
         {
             _isGameOnGoing = false;
             _currentTimer = 0;
-            ClearActiveCards();
+            _cardManager.ClearActiveCards();
         }
     }
 
@@ -330,14 +254,7 @@ public class GameManager : MonoBehaviour
     #region PERSISTANCY
     public void SaveGame()
     {
-        int[] cardId = new int[_activeCards.Count];
-        Vector3[] cardPos = new Vector3[_activeCards.Count];
-
-        for(int i = 0; i < _activeCards.Count; i++)
-        {
-            cardId[i] = _activeCards[i].CurentCardIndex;
-            cardPos[i] = _activeCards[i].CachedTransform.position;
-        }
+        _cardManager.GetCardIdAndPos(out int[] cardId, out Vector3[] cardPos);
 
         _persistanceManager.SaveGame(_score,
                                      _pairStreak,
@@ -363,9 +280,8 @@ public class GameManager : MonoBehaviour
                 int xOffset = levelStorage.CardID[i] % (Constants.MaxAllowedCards.x - 1);
                 int yOffset = Mathf.FloorToInt(levelStorage.CardID[i] / Constants.MaxAllowedCards.x);
 
-                Card c = GetCardInstance(levelStorage.CardPositions[i], _gridManager.Cardscale);
+                Card c = _cardManager.GetCardInstance(levelStorage.CardPositions[i], _gridManager.Cardscale);
                 c.SetOffset(xOffset, yOffset, levelStorage.CardID[i]);
-                _activeCards.Add(c);
                 c.HideCardInstant();
             }
 

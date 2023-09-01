@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc77aad469db984882a9c260a106a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cardPrefab: {fileID: 8714813683635605138, guid: 17fae3004faff6741aa1cef10284f1d3, type: 3}
   _gridManager:
     _gridSize: {x: 4, y: 4}
     _gridDimensionsHalf: {x: 0.6, y: 0.85}
     _generateDebugTransformForGridPoint: 0
-  _flippingCardPrefab: {fileID: 8714813683635605138, guid: 17fae3004faff6741aa1cef10284f1d3, type: 3}
   _visibilityDuration: 4
   _gameTimer: 60
   OnGameBegan:
@@ -133,6 +133,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnTimerUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  IsGameDataAvailable:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2089814478620671764
