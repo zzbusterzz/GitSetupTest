@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     private Card _previousClickedCard = null;
     private PersistanceManager _persistanceManager;
     private CardManager _cardManager;
+    private Coroutine _delayedHideCoroutine;
     #endregion
 
     #region UNITY_FUNCTIONS
@@ -101,7 +102,7 @@ public class GameManager : MonoBehaviour
             ClearCurrentData();
             _gridManager.CreateGrid();
             GenerateCards();
-            StartCoroutine(HideCardsAfterDelay());
+            _delayedHideCoroutine = StartCoroutine(HideCardsAfterDelay());
             _currentTimer = _gameTimer;
             _pairStreak = 0;
             OnTimerUpdated?.Invoke(_currentTimer);
@@ -236,6 +237,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(Constants.FlipTime);
 
         _isGameOnGoing = true;
+        _delayedHideCoroutine = null;
     }
 
     /// <summary>
@@ -262,6 +264,11 @@ public class GameManager : MonoBehaviour
             _isGameOnGoing = false;
             _currentTimer = 0;
             _cardManager.ClearActiveCards();
+            if(_delayedHideCoroutine != null)
+            {
+                StopCoroutine( _delayedHideCoroutine );
+                _delayedHideCoroutine = null;
+            }
         }
     }
 

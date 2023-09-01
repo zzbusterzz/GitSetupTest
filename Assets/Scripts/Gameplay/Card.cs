@@ -45,6 +45,18 @@ public class Card : MonoBehaviour, IPointerClickHandler
     #endregion
 
     #region PUBLIC_FUNCTIONS
+    public void Despawn()
+    {
+        if(_animCoroutine != null)
+        {
+            StopCoroutine(_animCoroutine);
+            _animCoroutine = null;
+        }
+        _cachedGO.SetActive(false);
+        _isHidden = false;
+        _curentCardIndex = -1;
+    }
+
     public void SetOffset(int xOffset, int yOffset, int index)
     {
         _curentCardIndex = index;

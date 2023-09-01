@@ -38,7 +38,7 @@ public class CardManager
     {
         for (int i = 0; i < _activeCards.Count; i++)
         {
-            _activeCards[i].StopAllCoroutines();
+            _activeCards[i].Despawn();
             ReturnCard(_activeCards[i]);
         }
         _activeCards.Clear();
