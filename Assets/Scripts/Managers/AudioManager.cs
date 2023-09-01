@@ -13,6 +13,7 @@ public partial class AudioManager : MonoBehaviour
     private AudioData _audioData;
     #endregion
 
+    #region UNITY_FUNCTIONS
     private void Start()
     {
         Card.OnCardFlipBegan += PlayCardFlip;
@@ -22,6 +23,7 @@ public partial class AudioManager : MonoBehaviour
     {
         Card.OnCardFlipBegan -= PlayCardFlip;
     }
+    #endregion
 
     #region PUBLIC_FUNCTIONS
     public void PlayCardFlip()

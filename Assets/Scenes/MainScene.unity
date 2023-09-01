@@ -376,7 +376,6 @@ MonoBehaviour:
   _menuPanel: {fileID: 2108082780}
   _gamePanel: {fileID: 1668794644}
   _newGame: {fileID: 1944010738}
-  _Restart: {fileID: 0}
   _quit: {fileID: 2117217268}
   _resume: {fileID: 942760001}
   _score: {fileID: 1763176875}
@@ -2613,6 +2612,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1088706460}
     - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
+      propertyPath: _gridManager._gridSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
+      propertyPath: _gridManager._gridSize.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
+      propertyPath: _gridManager._gridDimensionsHalf.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
+      propertyPath: _gridManager._gridDimensionsHalf.y
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
       propertyPath: OnLose.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2623,6 +2638,10 @@ PrefabInstance:
     - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
       propertyPath: OnGameBegan.m_PersistentCalls.m_Calls.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
+      propertyPath: _gridManager._generateDebugTransformForGridPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2089814478620671753, guid: 78dbac71ed628c74aad59a6bd03e412f, type: 3}
       propertyPath: OnScoreUpdated.m_PersistentCalls.m_Calls.Array.size

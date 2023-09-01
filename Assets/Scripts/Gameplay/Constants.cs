@@ -11,5 +11,5 @@ public class Constants
     public const float FlipTime = 1;
 
     public static Vector2Int MaxAllowedCards = new Vector2Int(13, 4);
-    
+    public const float GridStartPercent = 20;
 }

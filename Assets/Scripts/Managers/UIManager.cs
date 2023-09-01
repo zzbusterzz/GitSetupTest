@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    #region SERIALISED_PROPERTIES
+    #region SERIALISED_FIELDS
     [SerializeField]
     private GameObject _menuPanel;
     [SerializeField]

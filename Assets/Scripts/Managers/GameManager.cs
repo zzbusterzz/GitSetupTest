@@ -7,10 +7,7 @@ public class GameManager : MonoBehaviour
 {
     #region SERIALISED_FIELDS
     [SerializeField]
-    private Vector2Int _gridSize;
-
-    [SerializeField]
-    private Vector2 _gridDimensionsHalf;
+    private GridManager _gridManager;
 
     [SerializeField]
     private Card _flippingCardPrefab;
@@ -47,7 +44,6 @@ public class GameManager : MonoBehaviour
     private bool _isGameOnGoing = false;
     private int _pairStreak = 0;
 
-    private List<Vector3> _gridPosition;
     private List<Card> _activeCards;
     private List<Card> _inactiveCards;
     private int totalCards;
@@ -58,11 +54,11 @@ public class GameManager : MonoBehaviour
     #region UNITY_FUNCTIONS
     private void Start()
     {
-        _gridPosition = new List<Vector3>();
         _activeCards = new List<Card>();
         _inactiveCards = new List<Card>();
 
         Card.CurrentCardOpened += OnCardOpen;
+        _gridManager.Init();
     }
 
     private void OnDestroy()
@@ -90,12 +86,15 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region PUBLIC_FUNCTIONS
+    /// <summary>
+    /// Triggers new game
+    /// </summary>
     public void NewGame()
     {
-        totalCards = _gridSize.x * _gridSize.y;
+        totalCards = _gridManager.TotalItems;
         if (totalCards % 2 == 0)
         {
-            CreateGrid();
+            _gridManager.CreateGrid();
             GenerateCards();
             StartCoroutine(HideCardsAfterDelay());
             _currentTimer = _gameTimer;
@@ -109,6 +108,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Triggers Quit
+    /// </summary>
     public void OnQuit()
     {
         Application.Quit();
@@ -116,24 +118,14 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region PRIVATE_FUNCTIONS
-    private void CreateGrid()
-    {
-        Vector3 gridStartVector = _gridStart.position + new Vector3(_gridDimensionsHalf.x, -_gridDimensionsHalf.y, 0);
-        float dimWidth = 2 * _gridDimensionsHalf.x;
-        float dimHeight = 2 * _gridDimensionsHalf.y;
 
-        for (int i = 0; i < _gridSize.x; i++)
-        {
-            for(int j = 0; j < _gridSize.y; j++)
-            {
-                _gridPosition.Add(new Vector3(
-                    gridStartVector.x + (i * dimWidth),
-                    gridStartVector.y - (j * dimHeight),
-                    0));
-            }
-        }
-    }
-
+    #region GAMEPLAY_FUNCTIONS
+    /// <summary>
+    /// Generates the card based on given grid size
+    /// Randomly it will pick half the size of total req cards from deck of 52
+    /// A random position will be chosen for two times from the generated grid vector positions
+    /// Card will be placed from the position and id will be assigned
+    /// </summary>
     private void GenerateCards()
     {
         int uniqueCardsToGen = totalCards / 2;
@@ -147,31 +139,103 @@ public class GameManager : MonoBehaviour
 
         foreach (int number in numbers)
         {
-            Vector3 pos = GetGridPosition();
+            int xOffset = number % (Constants.MaxAllowedCards.x - 1);
+            int yOffset = Mathf.FloorToInt(number / Constants.MaxAllowedCards.x);
+
+            Vector3 pos = _gridManager.GetGridPosition();
             Card c = GetCardInstance(pos);
-            c.SetOffset(number % (Constants.MaxAllowedCards.x - 1), Mathf.FloorToInt(number / Constants.MaxAllowedCards.x));
+            c.SetOffset(xOffset, yOffset);
             _activeCards.Add(c);
 
-            pos = GetGridPosition();
+            pos = _gridManager.GetGridPosition();
             c = GetCardInstance(pos);
-            c.SetOffset(number % (Constants.MaxAllowedCards.x - 1), Mathf.FloorToInt(number / Constants.MaxAllowedCards.x));
+            c.SetOffset(xOffset, yOffset);
             _activeCards.Add(c);
         }
     }
 
+    /// <summary>
+    /// Called when card animation of opening is complete
+    /// Here check will be done if card is first or second
+    /// if first it will wait for user to open next card
+    /// if second it will compare to first and determine if its matching or not
+    /// </summary>
+    /// <param name="currCard"></param>
+    private void OnCardOpen(Card currCard)
+    {
+        if (_previousClickedCard == null)
+        {
+            _previousClickedCard = currCard;
+        }
+        else
+        {
+            if (_previousClickedCard.CurentCardIndex == currCard.CurentCardIndex)
+            {
+                OnCorrectGuess?.Invoke();
+                //Players score will keep on increasing as and when the streak continues
+                //This will be the player bonus
+                _score += 1 + _pairStreak;
+                _pairStreak++;
+                OnScoreUpdated?.Invoke(_score);
+
+                ReturnAlongWithActiveCardList(currCard);
+                ReturnAlongWithActiveCardList(_previousClickedCard);
+
+                if (_activeCards.Count == 0)
+                {
+                    Victory();
+                }
+            }
+            else
+            {
+                _pairStreak = 0;
+                OnWrongGuess?.Invoke();
+                _previousClickedCard.HideCard();
+                currCard.HideCard();
+            }
+            _previousClickedCard = null;
+        }
+    }
+    #endregion
+
+    #region POOLING_FUNCTIONS
     private Card GetCardInstance(Vector3 pos)
     {
+        if(_inactiveCards.Count > 0)
+        {
+            Card c = _inactiveCards[0];
+            _inactiveCards.Remove(c);
+            c.SetCard(pos, true);
+            return c;
+        }
+
         return GameObject.Instantiate(_flippingCardPrefab, pos, Quaternion.identity);
     }
 
-    private Vector3 GetGridPosition()
+    private void ReturnCard(Card card)
     {
-        int gridIndex = Random.Range(0, _gridPosition.Count);
-        Vector3 pos = _gridPosition[gridIndex];
-        _gridPosition.Remove(pos);
-        return pos;
+        if (!_inactiveCards.Contains(card))
+        {
+            _inactiveCards.Add(card);
+        }
+        card.SetCard(Vector3.zero, false);
     }
 
+    private void ReturnAlongWithActiveCardList(Card card)
+    {
+        ReturnCard(card);
+        if (_activeCards.Contains(card))
+        {
+            _activeCards.Remove(card);
+        }
+    }
+    #endregion
+
+    #region MISC_FUNCTIONS
+    /// <summary>
+    /// This function wait for some time before hiding all generated cards and starts the timer
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator HideCardsAfterDelay()
     {
         float currentTime = 0;
@@ -181,14 +245,18 @@ public class GameManager : MonoBehaviour
             currentTime += Time.deltaTime;
         }
 
-        ToggleCardVisibility(true);
+        ToggleCardReavealState(true);
 
         yield return new WaitForSeconds(Constants.FlipTime);
 
         _isGameOnGoing = true;
     }
 
-    private void ToggleCardVisibility(bool hideCards)
+    /// <summary>
+    /// Toggles weather all cards are revealed or hidden
+    /// </summary>
+    /// <param name="hideCards"></param>
+    private void ToggleCardReavealState(bool hideCards)
     {
         if (hideCards)
         {
@@ -208,64 +276,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnCardOpen(Card currCard)
-    {
-        if(_previousClickedCard == null)
-        {
-            _previousClickedCard = currCard;
-        }
-        else
-        {
-            if(_previousClickedCard.CurentCardIndex == currCard.CurentCardIndex)
-            {
-                OnCorrectGuess?.Invoke();
-                //Players score will keep on increasing as and when the streak continues
-                //This will be the player bonus
-                _score += 1 + _pairStreak;
-                _pairStreak++;
-                OnScoreUpdated?.Invoke(_score);
-
-                _previousClickedCard.gameObject.SetActive(false);
-                currCard.gameObject.SetActive(false);
-
-                _activeCards.Remove(currCard);
-                _activeCards.Remove(_previousClickedCard);
-                
-                _inactiveCards.Add(currCard);
-                _inactiveCards.Add(_previousClickedCard);
-
-                if(_activeCards.Count == 0)
-                {
-                    Victory();
-                }
-            }
-            else
-            {
-                _pairStreak = 0;
-                OnWrongGuess?.Invoke();
-                _previousClickedCard.HideCard();
-                currCard.HideCard();
-            }
-            _previousClickedCard = null;
-        }
-    }
-
-    void Victory()
+    /// <summary>
+    /// Triggers victory event
+    /// </summary>
+    private void Victory()
     {
         OnVictory.Invoke();
     }
 
-    void Loss()
+    /// <summary>
+    /// Triggers lose event
+    /// </summary>
+    private void Loss()
     {
         for(int i = 0; i < _activeCards.Count; i++)
         {
-            Card c = _activeCards[i];
-            c.gameObject.SetActive(false);
-            _inactiveCards.Add(c);
+            ReturnCard(_activeCards[i]);
         }
-
         _activeCards.Clear();
+
         OnLose.Invoke();
     }
+    #endregion
+
     #endregion
 }

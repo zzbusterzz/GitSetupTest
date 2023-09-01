@@ -5,30 +5,43 @@ using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour, IPointerClickHandler
 {
+    #region PUBLIC_ACTION_FIELDS
     public static Action OnCardFlipBegan;
     public static Action<Card> CurrentCardOpened;
+    #endregion
 
+    #region SERIALISED_FIELDS
     [SerializeField]
     private Vector2 _materialTexOffset;
 
     [SerializeField]
     private Renderer _meshRenderer;
+    #endregion
 
+    #region PRIVATE_FIELDS
     //private MaterialPropertyBlock matBlock;
     private int _curentCardIndex = -1;
     private bool _isHidden = false;
     private Coroutine _animCoroutine = null;
-    private Transform _transform;
+    private Transform _cachedTransform;
+    private GameObject _cachedGO;
+    #endregion
 
+    #region GETTERS
     public int CurentCardIndex { get => _curentCardIndex; }
     public bool IsAnimating { get => _animCoroutine != null; }
+    #endregion
 
+    #region UNITY_FUNCTIONS
     private void Awake()
     {
         //matBlock = new MaterialPropertyBlock();
-        _transform = transform;
+        _cachedTransform = transform;
+        _cachedGO = gameObject;
     }
+    #endregion
 
+    #region PUBLIC_FUNCTIONS
     public void SetOffset(int xOffset, int yOffset)
     {
         _curentCardIndex = (Constants.MaxAllowedCards.x * xOffset) + (Constants.MaxAllowedCards.y * yOffset);
@@ -52,21 +65,6 @@ public class Card : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private IEnumerator AnimCoroutine(Quaternion from, Quaternion to, Action<Card> onAnimComplete = null)
-    {
-        float curTime = 0;
-
-        while(curTime < Constants.FlipTime)
-        {
-            _transform.rotation = Quaternion.Slerp(from, to, curTime / Constants.FlipTime);
-            curTime += Time.deltaTime;
-            yield return null;
-        }
-
-        _animCoroutine = null;
-        onAnimComplete?.Invoke(this);
-    }
-
     public void RevealCard()
     {
         if (_isHidden)
@@ -81,8 +79,33 @@ public class Card : MonoBehaviour, IPointerClickHandler
         if (!_isHidden)
         {
             OnCardFlipBegan?.Invoke();
-            _animCoroutine = StartCoroutine(AnimCoroutine(_transform.rotation, Constants.QInvertedRot));
+            _animCoroutine = StartCoroutine(AnimCoroutine(_cachedTransform.rotation, Constants.QInvertedRot));
             _isHidden = true;
         }
     }
+
+    public void SetCard(Vector3 pos, bool visibility)
+    {
+        _cachedGO.SetActive(visibility);
+        _cachedTransform.position = pos;
+    }
+    #endregion
+
+    #region PRIVATE_FUNCTIONS
+    private IEnumerator AnimCoroutine(Quaternion from, Quaternion to, Action<Card> onAnimComplete = null)
+    {
+        float curTime = 0;
+
+        while (curTime < Constants.FlipTime)
+        {
+            _cachedTransform.rotation = Quaternion.Slerp(from, to, curTime / Constants.FlipTime);
+            curTime += Time.deltaTime;
+            yield return null;
+        }
+
+        _animCoroutine = null;
+        onAnimComplete?.Invoke(this);
+    }
+    #endregion
+
 }
