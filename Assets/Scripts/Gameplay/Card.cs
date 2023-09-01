@@ -5,8 +5,6 @@ using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour, IPointerClickHandler
 {
-    private const float _flipTime = 1;
-
     public static Action OnCardFlipBegan;
     public static Action<Card> CurrentCardOpened;
 
@@ -58,9 +56,9 @@ public class Card : MonoBehaviour, IPointerClickHandler
     {
         float curTime = 0;
 
-        while(curTime < _flipTime)
+        while(curTime < Constants.FlipTime)
         {
-            _transform.rotation = Quaternion.Slerp(from, to, curTime / _flipTime);
+            _transform.rotation = Quaternion.Slerp(from, to, curTime / Constants.FlipTime);
             curTime += Time.deltaTime;
             yield return null;
         }

@@ -34,12 +34,18 @@ public class GameManager : MonoBehaviour
     private UnityEvent OnCorrectGuess;
     [SerializeField]
     private UnityEvent OnWrongGuess;
+
+    [SerializeField]
+    private UnityEvent<int> OnScoreUpdated;
+    [SerializeField]
+    private UnityEvent<float> OnTimerUpdated;
     #endregion
 
     #region PRIVATE_FIELDS
     private int _score = 0;
     private float _currentTimer = 0;
     private bool _isGameOnGoing = false;
+    private int _pairStreak = 0;
 
     private List<Vector3> _gridPosition;
     private List<Card> _activeCards;
@@ -57,8 +63,6 @@ public class GameManager : MonoBehaviour
         _inactiveCards = new List<Card>();
 
         Card.CurrentCardOpened += OnCardOpen;
-
-        NewGame();
     }
 
     private void OnDestroy()
@@ -70,12 +74,14 @@ public class GameManager : MonoBehaviour
     {
         if (_isGameOnGoing)
         {
-            if(_currentTimer < _gameTimer)
+            if(_currentTimer > 0)
             {
-                _currentTimer += Time.deltaTime;
+                _currentTimer -= Time.deltaTime;
+                OnTimerUpdated?.Invoke(_currentTimer);
             }
             else
             {
+                OnTimerUpdated?.Invoke(0);
                 _isGameOnGoing = false;
                 Loss();
             }
@@ -92,8 +98,9 @@ public class GameManager : MonoBehaviour
             CreateGrid();
             GenerateCards();
             StartCoroutine(HideCardsAfterDelay());
-            _isGameOnGoing=true;
-            _currentTimer = 0;
+            _currentTimer = _gameTimer;
+            _pairStreak = 0;
+            OnTimerUpdated?.Invoke(_currentTimer);
             OnGameBegan.Invoke();
         }
         else
@@ -102,9 +109,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Restart()
+    public void OnQuit()
     {
-        
+        Application.Quit();
     }
     #endregion
 
@@ -171,10 +178,14 @@ public class GameManager : MonoBehaviour
         while(currentTime < _visibilityDuration)
         {
             yield return null;
-            currentTime++;
+            currentTime += Time.deltaTime;
         }
 
         ToggleCardVisibility(true);
+
+        yield return new WaitForSeconds(Constants.FlipTime);
+
+        _isGameOnGoing = true;
     }
 
     private void ToggleCardVisibility(bool hideCards)
@@ -208,7 +219,11 @@ public class GameManager : MonoBehaviour
             if(_previousClickedCard.CurentCardIndex == currCard.CurentCardIndex)
             {
                 OnCorrectGuess?.Invoke();
-                _score++;
+                //Players score will keep on increasing as and when the streak continues
+                //This will be the player bonus
+                _score += 1 + _pairStreak;
+                _pairStreak++;
+                OnScoreUpdated?.Invoke(_score);
 
                 _previousClickedCard.gameObject.SetActive(false);
                 currCard.gameObject.SetActive(false);
@@ -226,6 +241,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                _pairStreak = 0;
                 OnWrongGuess?.Invoke();
                 _previousClickedCard.HideCard();
                 currCard.HideCard();
