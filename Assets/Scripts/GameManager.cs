@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,35 +16,59 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Transform _gridStart;
+
+    [SerializeField]
+    private float _visibilityDuration = 4;
     #endregion
 
     #region PRIVATE_FIELDS
-    private float _visibilityDuration = 4;
     private int _score = 0;
     private List<Vector3> _gridPosition;
     private List<Card> _activeCards;
+    private List<Card> _inactiveCards;
+    private int totalCards;
+
+    private Card _previousClickedCard = null;
     #endregion
 
-
+    #region UNITY_FUNCTIONS
     private void Start()
     {
         _gridPosition = new List<Vector3>();
         _activeCards = new List<Card>();
+        _inactiveCards = new List<Card>();
+
+        Card.CurrentCardOpened += OnCardOpen;
+
         NewGame();
     }
 
+    private void OnDestroy()
+    {
+        Card.CurrentCardOpened -= OnCardOpen;
+    }
+    #endregion
+
+    #region PUBLIC_FUNCTIONS
     public void NewGame()
     {
-        CreateGrid();
-        GenerateCards();
+        totalCards = _gridSize.x * _gridSize.y;
+        if (totalCards % 2 == 0)
+        {
+            CreateGrid();
+            GenerateCards();
+            StartCoroutine(HideCardsAfterDelay());
+        }
     }
 
     public void Restart()
     {
 
     }
+    #endregion
 
-    void CreateGrid()
+    #region PRIVATE_FUNCTIONS
+    private void CreateGrid()
     {
         Vector3 gridStartVector = _gridStart.position + new Vector3(_gridDimensionsHalf.x, -_gridDimensionsHalf.y, 0);
         float dimWidth = 2 * _gridDimensionsHalf.x;
@@ -61,35 +86,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void GenerateCards()
+    private void GenerateCards()
     {
-        int totalCards = _gridSize.x * _gridSize.y;
+        int uniqueCardsToGen = totalCards / 2;
 
-        if( totalCards % 2 == 0 ) 
+        HashSet<int> numbers = new HashSet<int>();
+
+        while(numbers.Count < uniqueCardsToGen) 
         {
-            int uniqueCardsToGen = totalCards / 2;
+            numbers.Add(Random.Range(0, 52));
+        }
 
-            Vector2Int _maxAllowedCards = new Vector2Int(13, 4);
+        foreach (int number in numbers)
+        {
+            Vector3 pos = GetGridPosition();
+            Card c = GetCardInstance(pos);
+            c.SetOffset(number % (Constants.MaxAllowedCards.x - 1), Mathf.FloorToInt(number / Constants.MaxAllowedCards.x));
+            _activeCards.Add(c);
 
-            HashSet<int> numbers = new HashSet<int>();
-
-            while(numbers.Count < uniqueCardsToGen) 
-            {
-                numbers.Add(Random.Range(0, 52));
-            }
-
-            foreach (int number in numbers)
-            {
-                Vector3 pos = GetGridPosition();
-                Card c = GetCardInstance(pos);
-                c.SetOffset(number % (_maxAllowedCards.x - 1), Mathf.FloorToInt(number / _maxAllowedCards.x));
-                _activeCards.Add(c);
-
-                pos = GetGridPosition();
-                c = GetCardInstance(pos);
-                c.SetOffset(number % (_maxAllowedCards.x - 1), Mathf.FloorToInt(number / _maxAllowedCards.x));
-                _activeCards.Add(c);
-            }
+            pos = GetGridPosition();
+            c = GetCardInstance(pos);
+            c.SetOffset(number % (Constants.MaxAllowedCards.x - 1), Mathf.FloorToInt(number / Constants.MaxAllowedCards.x));
+            _activeCards.Add(c);
         }
     }
 
@@ -105,4 +123,71 @@ public class GameManager : MonoBehaviour
         _gridPosition.Remove(pos);
         return pos;
     }
+
+    private IEnumerator HideCardsAfterDelay()
+    {
+        float currentTime = 0;
+        while(currentTime < _visibilityDuration)
+        {
+            yield return null;
+            currentTime++;
+        }
+
+        ToggleCardVisibility(true);
+    }
+
+    private void ToggleCardVisibility(bool hideCards)
+    {
+        if (hideCards)
+        {
+            for (int i = 0; i < _activeCards.Count; i++)
+            {
+                _activeCards[i].HideCard();
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _activeCards.Count; i++)
+            {
+                _activeCards[i].RevealCard();
+            }
+        }
+    }
+
+    private void OnCardOpen(Card currCard)
+    {
+        if(_previousClickedCard == null)
+        {
+            _previousClickedCard = currCard;
+        }
+        else
+        {
+            if(_previousClickedCard.CurentCardIndex == currCard.CurentCardIndex)
+            {
+                _score++;
+                //Play clear audio
+
+                _previousClickedCard.gameObject.SetActive(false);
+                currCard.gameObject.SetActive(false);
+
+                _activeCards.Remove(currCard);
+                _activeCards.Remove(_previousClickedCard);
+                
+                _inactiveCards.Add(currCard);
+                _inactiveCards.Add(_previousClickedCard);
+            }
+            else
+            {
+                _previousClickedCard.HideCard();
+                currCard.HideCard();
+            }
+            _previousClickedCard = null;
+        }
+    }
+
+    void CheckForVictory()
+    {
+
+    }
+    #endregion
 }
