@@ -166,11 +166,11 @@ public class GameManager : MonoBehaviour
 
             Vector3 pos = _gridManager.GetGridPosition();
             Card c = _cardManager.GetCardInstance(pos, _gridManager.Cardscale);
-            c.SetOffset(xOffset, yOffset, number);
+            Material mat = c.SetOffset(xOffset, yOffset, number);
 
             pos = _gridManager.GetGridPosition();
             c = _cardManager.GetCardInstance(pos, _gridManager.Cardscale);
-            c.SetOffset(xOffset, yOffset, number);
+            c.SetMatInstance(mat, number);
         }
     }
 

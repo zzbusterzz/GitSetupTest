@@ -57,7 +57,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
         _curentCardIndex = -1;
     }
 
-    public void SetOffset(int xOffset, int yOffset, int index)
+    public Material SetOffset(int xOffset, int yOffset, int index)
     {
         _curentCardIndex = index;
         //matBlock.SetVector(_matTexStr, new Vector2(
@@ -68,6 +68,14 @@ public class Card : MonoBehaviour, IPointerClickHandler
         _meshRenderer.material.SetTextureOffset(Constants.MatTexStr, new Vector2(
             _materialTexOffset.x * xOffset,
             _materialTexOffset.y * yOffset));
+
+        return _meshRenderer.material;
+    }
+
+    public void SetMatInstance(Material mat, int index)
+    {
+        _curentCardIndex = index;
+        _meshRenderer.material = mat;
     }
 
     public void OnPointerClick(PointerEventData eventData)
