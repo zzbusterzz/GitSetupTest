@@ -12,14 +12,10 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
     #region SERIALISED_FIELDS
     [SerializeField]
-    private Vector2 _materialTexOffset;
-
-    [SerializeField]
-    private Renderer _meshRenderer;
+    private SpriteRenderer _spriteRenderer;
     #endregion
 
     #region PRIVATE_FIELDS
-    //private MaterialPropertyBlock matBlock;
     private int _curentCardIndex = -1;
     private bool _isHidden = false;
     private Coroutine _animCoroutine = null;
@@ -37,7 +33,6 @@ public class Card : MonoBehaviour, IPointerClickHandler
     #region UNITY_FUNCTIONS
     private void Awake()
     {
-        //matBlock = new MaterialPropertyBlock();
         _cachedTransform = transform;
         _cachedGO = gameObject;
         _cachedOrigScale = transform.localScale;
@@ -57,25 +52,10 @@ public class Card : MonoBehaviour, IPointerClickHandler
         _curentCardIndex = -1;
     }
 
-    public Material SetOffset(int xOffset, int yOffset, int index)
+    public void SetOffset(Sprite sprite, int index)
     {
         _curentCardIndex = index;
-        //matBlock.SetVector(_matTexStr, new Vector2(
-        //    _materialTexOffset.x * xOffset,
-        //    _materialTexOffset.y * yOffset));
-        //_meshRenderer.SetPropertyBlock(matBlock); //Seems to be some issue in batching zzz
-
-        _meshRenderer.material.SetTextureOffset(Constants.MatTexStr, new Vector2(
-            _materialTexOffset.x * xOffset,
-            _materialTexOffset.y * yOffset));
-
-        return _meshRenderer.material;
-    }
-
-    public void SetMatInstance(Material mat, int index)
-    {
-        _curentCardIndex = index;
-        _meshRenderer.material = mat;
+        _spriteRenderer.sprite = sprite;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -118,7 +98,8 @@ public class Card : MonoBehaviour, IPointerClickHandler
         _cachedGO.SetActive(visibility);
         _cachedTransform.position = pos;
         _cachedTransform.rotation = Quaternion.identity;
-        _cachedTransform.localScale = new Vector3(_cachedOrigScale.x * scale, _cachedOrigScale.y * scale, _cachedOrigScale.z);
+        _cachedTransform.localScale = visibility ? new Vector3(_cachedOrigScale.x * scale, _cachedOrigScale.y * scale, _cachedOrigScale.z) :
+            Vector3.one;
     }
     #endregion
 

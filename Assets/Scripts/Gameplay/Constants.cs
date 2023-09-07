@@ -7,11 +7,8 @@ public class Constants
     public static Quaternion QInvertedRot = Quaternion.Euler(InvertedRot);
     public static Quaternion QRevealRot = Quaternion.identity;
 
-    public const string MatTexStr = "_CardFront";
-    public const string key = "LevelSave";
+    public const string Key = "LevelSave";
 
     public const float FlipTime = 1;
-
-    public static Vector2Int MaxAllowedCards = new Vector2Int(13, 4);
     public const float GridStartPercent = 20;
 }

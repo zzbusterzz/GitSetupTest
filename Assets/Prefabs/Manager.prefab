@@ -47,10 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc77aad469db984882a9c260a106a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardPrefab: {fileID: 8714813683635605138, guid: 17fae3004faff6741aa1cef10284f1d3, type: 3}
+  _cardPrefab: {fileID: 5232326923434293516, guid: 17aa58afc88d26445a62cc5938126ad4, type: 3}
+  _cardResourceData: {fileID: 11400000, guid: 91a377b04de6ca7439bd224adf89711f, type: 2}
   _gridManager:
-    _gridSize: {x: 4, y: 4}
-    _gridDimensionsHalf: {x: 0.6, y: 0.85}
+    _gridSize: {x: 2, y: 2}
+    _gridDimensionsHalf: {x: 0.68, y: 1.02}
+    _padding: {x: 0.1, y: 0.1}
+    _onGridSizeUpdated:
+      m_PersistentCalls:
+        m_Calls: []
     _generateDebugTransformForGridPoint: 0
   _visibilityDuration: 4
   _gameTimer: 60

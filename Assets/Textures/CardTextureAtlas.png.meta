@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f6c2d98d1986c8847b4a7f134ccf3c81
+guid: 6a64e8f2e12dc5c48b3f3afe20cd7f55
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -36,15 +36,15 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -53,7 +53,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -115,7 +115,1099 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91bdb3fd68554de40994bc1617000405
+      internalID: -730292486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_1
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9eec66485e4ea24a99507e0c0eb8383
+      internalID: 1554745012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_2
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3959f8dbecafddf478c0e443398cfcef
+      internalID: -1201098519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_3
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02ffbf4b9ee10434b9d91fdd0c14b4fe
+      internalID: -340774378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_4
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8ec20bc4d28d6d48914237c99705d75
+      internalID: -784340542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_5
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0596cebfc98ae494b97de7a0dce4e983
+      internalID: -1397544810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_6
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cee6252d19c3fad469b1b3c9fd8fc9e0
+      internalID: 937945420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_7
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e14bbc1196b91fd48b3f0fc635010af8
+      internalID: 1793916300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_8
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 046ab50884ea1a74dbefffcb4b5f266b
+      internalID: -1573248283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_9
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26763fd53349d5349876132cb04fd4b2
+      internalID: 331211527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_10
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acfb2c5e8b496c54ab228525e45880ab
+      internalID: 1920988198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_11
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90957498e43e879408cc5bd13b2f9687
+      internalID: 1367825472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_12
+      rect:
+        serializedVersion: 2
+        x: 1775
+        y: 658
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6290751cb0ce3645b3bd5b410f74b99
+      internalID: -22390998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_13
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e3daa61331f1c642b5364f6f284b5a2
+      internalID: -542301379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_14
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9a3d50c59d98d24f830eeba9c2bb353
+      internalID: -642364949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_15
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f688acdb4fb89a4449ad5df542db3874
+      internalID: 954875991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_16
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01de7f6c68757fa42bf5cfc14a53aa0b
+      internalID: 8727640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_17
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8aa80d60fdca3a49bc0a137e00092ed
+      internalID: 1903054041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_18
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8946f403dbb2023499b0be9c3ac8bb8e
+      internalID: -2016361253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_19
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e468335e7a1d79849a5404953d1c8d92
+      internalID: 257497207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_20
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd119df19f363149b56b329297643b7
+      internalID: -647323057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_21
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccafdfecb9b4bfb429e2a46e37f6ac0f
+      internalID: 368501638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_22
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95601d42bdf4d58489885d9a5f6f2f00
+      internalID: -201879117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_23
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 782d1e1fd5f75234fa4cd00dd04ae2e6
+      internalID: 1832265184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_24
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53a04924b0792cb4eb543879993374fd
+      internalID: 529597765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_25
+      rect:
+        serializedVersion: 2
+        x: 1775
+        y: 443
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 912ed9b7bf855ac4ead1edda61390077
+      internalID: -1176018690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_26
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aede85313e6216d4d95fd57467fd83fd
+      internalID: -616182618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_27
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab45429ea9fe1dc4dbe2cb3df1d5e5f5
+      internalID: -1056968594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_28
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51d567ebb5afd5c489b472828764511d
+      internalID: 340453226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_29
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d404565880cf0a49897bea509456e63
+      internalID: 559009531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_30
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28734f7fce39aa0438e69ea17e4945ca
+      internalID: 1497374782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_31
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbcb9022a9f7d4e4d93d9c5416752a13
+      internalID: -340234426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_32
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 181684e07d8ee1346bef8170767f113e
+      internalID: 2112100403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_33
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a9033ebff938964686545f24e4d30cc
+      internalID: -1327635730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_34
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13f2c7de4d4bcde4c8df01b40c1a4649
+      internalID: 880182021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_35
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 946fba4778b0e9144ac79d0411df0ea2
+      internalID: 983182535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_36
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f0f35e8f75435b42a5fe53794be900a
+      internalID: -715476373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_37
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cbfc6e89599f8c409bdc3d112970488
+      internalID: 616038000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_38
+      rect:
+        serializedVersion: 2
+        x: 1775
+        y: 228
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a83b688955257eb4c98e9c63dc077eb4
+      internalID: -152853178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_39
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38584a6fda9d82a408a5484e459623cb
+      internalID: -2110075954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_40
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0f99f33d3635ae4db122ccef3a42ed9
+      internalID: -703692817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_41
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2e3dd74e7a8ae34e8fb41187e2b6683
+      internalID: -2117312733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_42
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75c8de3b2011db0449130858003ad78a
+      internalID: 2094173005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_43
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 709e43c1e962bb24fad7067af7ce9bee
+      internalID: 1388706473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_44
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13454fb103f79b54daea821465238a7a
+      internalID: -1910054366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_45
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7502b2c74b6dcf64694aa1c7a117154f
+      internalID: 796564891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_46
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a74d7eb25cba90342a0ff6243fb8889b
+      internalID: -1682298650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_47
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 411a0b7b24c0ac440b262377b952b2ce
+      internalID: -867470403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_48
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bfa3153691d2524c86e0d31b7db766a
+      internalID: 668726140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_49
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fc8c190b351145459478d781ac9f671
+      internalID: 1840436426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_50
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 946ee5c4eda98a0409c13df2507b311e
+      internalID: -1503215754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardTextureAtlas 1_51
+      rect:
+        serializedVersion: 2
+        x: 1775
+        y: 13
+        width: 136
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aef62a424cf3edd40a2070e61d13691a
+      internalID: -1656408281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +1218,59 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CardTextureAtlas 1_0: -730292486
+      CardTextureAtlas 1_1: 1554745012
+      CardTextureAtlas 1_10: 1920988198
+      CardTextureAtlas 1_11: 1367825472
+      CardTextureAtlas 1_12: -22390998
+      CardTextureAtlas 1_13: -542301379
+      CardTextureAtlas 1_14: -642364949
+      CardTextureAtlas 1_15: 954875991
+      CardTextureAtlas 1_16: 8727640
+      CardTextureAtlas 1_17: 1903054041
+      CardTextureAtlas 1_18: -2016361253
+      CardTextureAtlas 1_19: 257497207
+      CardTextureAtlas 1_2: -1201098519
+      CardTextureAtlas 1_20: -647323057
+      CardTextureAtlas 1_21: 368501638
+      CardTextureAtlas 1_22: -201879117
+      CardTextureAtlas 1_23: 1832265184
+      CardTextureAtlas 1_24: 529597765
+      CardTextureAtlas 1_25: -1176018690
+      CardTextureAtlas 1_26: -616182618
+      CardTextureAtlas 1_27: -1056968594
+      CardTextureAtlas 1_28: 340453226
+      CardTextureAtlas 1_29: 559009531
+      CardTextureAtlas 1_3: -340774378
+      CardTextureAtlas 1_30: 1497374782
+      CardTextureAtlas 1_31: -340234426
+      CardTextureAtlas 1_32: 2112100403
+      CardTextureAtlas 1_33: -1327635730
+      CardTextureAtlas 1_34: 880182021
+      CardTextureAtlas 1_35: 983182535
+      CardTextureAtlas 1_36: -715476373
+      CardTextureAtlas 1_37: 616038000
+      CardTextureAtlas 1_38: -152853178
+      CardTextureAtlas 1_39: -2110075954
+      CardTextureAtlas 1_4: -784340542
+      CardTextureAtlas 1_40: -703692817
+      CardTextureAtlas 1_41: -2117312733
+      CardTextureAtlas 1_42: 2094173005
+      CardTextureAtlas 1_43: 1388706473
+      CardTextureAtlas 1_44: -1910054366
+      CardTextureAtlas 1_45: 796564891
+      CardTextureAtlas 1_46: -1682298650
+      CardTextureAtlas 1_47: -867470403
+      CardTextureAtlas 1_48: 668726140
+      CardTextureAtlas 1_49: 1840436426
+      CardTextureAtlas 1_5: -1397544810
+      CardTextureAtlas 1_50: -1503215754
+      CardTextureAtlas 1_51: -1656408281
+      CardTextureAtlas 1_6: 937945420
+      CardTextureAtlas 1_7: 1793916300
+      CardTextureAtlas 1_8: -1573248283
+      CardTextureAtlas 1_9: 331211527
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
