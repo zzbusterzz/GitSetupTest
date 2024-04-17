@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,11 +43,12 @@ public class GameManager : MonoBehaviour
         _persistanceManager = new PersistanceManager();
         _cardManager = new CardManager();
         _gameEvents.IsGameDataAvailable?.Invoke(_persistanceManager.HasGame());
+        Card.CurrentCardOpened += OnCardOpen;
+        _gameEvents.ToggleGameState += OnGameStateChanged;
     }
 
     private void Start()
-    {
-        Card.CurrentCardOpened += OnCardOpen;
+    {   
         _cardManager.Init(_cardPrefab);
         _gridManager.Init(_gameEvents);
     }
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         Card.CurrentCardOpened -= OnCardOpen;
+        _gameEvents.ToggleGameState -= OnGameStateChanged;
     }
 
     private void Update()
@@ -81,6 +84,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void NewGame()
     {
+        _score = 0;
         _totalCards = _gridManager.TotalItems;
         if (_totalCards % 2 == 0)
         {
@@ -240,6 +244,11 @@ public class GameManager : MonoBehaviour
     {
         _cardManager.ClearActiveCards();
         _gameEvents.OnLose.Invoke();
+    }
+
+    private void OnGameStateChanged(bool isPaused)
+    {
+        _isGameOnGoing = isPaused;
     }
 
     private void ClearCurrentData()

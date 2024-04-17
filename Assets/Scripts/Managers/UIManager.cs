@@ -22,7 +22,8 @@ public class UIManager : MonoBehaviour
     private GameObject _resume;
     [SerializeField]
     private GameObject _loadGame;
-
+    [SerializeField]
+    private GameObject _BG;
     [SerializeField]
     private TMP_InputField _gridX;
     [SerializeField]
@@ -84,12 +85,14 @@ public class UIManager : MonoBehaviour
 
     public void OnGameStartOrLoad()
     {
+        _BG.SetActive(false);
         _gamePanel.SetActive(true);
         _menuPanel.SetActive(false);
     }
 
     public void OnGameLost()
     {
+        _BG.SetActive(true);
         _gamePanel.SetActive(false);
         _menuPanel.SetActive(true);
         _loadGame.SetActive(_isGameToLoadAvailable);
@@ -97,6 +100,7 @@ public class UIManager : MonoBehaviour
 
     public void OnGameWon()
     {
+        _BG.SetActive(true);
         _gamePanel.SetActive(false);
         _menuPanel.SetActive(true);
         _loadGame.SetActive(_isGameToLoadAvailable);
@@ -108,13 +112,17 @@ public class UIManager : MonoBehaviour
         _gamePanel.SetActive(false);
         _menuPanel.SetActive(true);
         _loadGame.SetActive(_isGameToLoadAvailable);
+        _gameEvents.ToggleGameState?.Invoke(true);
+        _BG.SetActive(true);
     }
 
     public void OnResumeClick()
     {
+        _BG.SetActive(false);
         _resume.SetActive(false);
         _gamePanel.SetActive(true);
         _menuPanel.SetActive(false);
+        _gameEvents.ToggleGameState?.Invoke(false);
     }
 
     #region SETTINGS_FUNCTIONS

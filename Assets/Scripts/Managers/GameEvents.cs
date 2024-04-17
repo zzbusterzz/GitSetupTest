@@ -12,6 +12,7 @@ public class GameEvents : ScriptableObject
     public Action OnCorrectGuess;
     public Action OnWrongGuess;
 
+    public Action<bool> ToggleGameState;
     public Action<int> OnScoreUpdated;
     public Action<float> OnTimerUpdated;
     public Action<bool> IsGameDataAvailable;
