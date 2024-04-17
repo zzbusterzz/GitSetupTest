@@ -4,6 +4,9 @@ public partial class AudioManager : MonoBehaviour
 {
     #region SERIALISED_FIELD
     [SerializeField]
+    private GameEvents _gameEvents;
+
+    [SerializeField]
     private AudioSource _cardFlip;
 
     [SerializeField]
@@ -14,13 +17,23 @@ public partial class AudioManager : MonoBehaviour
     #endregion
 
     #region UNITY_FUNCTIONS
-    private void Start()
+    private void Awake()
     {
+        _gameEvents.OnGameBegan += OnGameBegan;
+        _gameEvents.OnVictory += OnVictory;
+        _gameEvents.OnLose += OnLose;
+        _gameEvents.OnCorrectGuess += PlayCardPairSuccess;
+        _gameEvents.OnWrongGuess += PlayCardPairedFail;
         Card.OnCardFlipBegan += PlayCardFlip;
     }
 
     private void OnDestroy()
     {
+        _gameEvents.OnGameBegan -= OnGameBegan;
+        _gameEvents.OnVictory -= OnVictory;
+        _gameEvents.OnLose -= OnLose;
+        _gameEvents.OnCorrectGuess -= PlayCardPairSuccess;
+        _gameEvents.OnWrongGuess -= PlayCardPairedFail;
         Card.OnCardFlipBegan -= PlayCardFlip;
     }
     #endregion

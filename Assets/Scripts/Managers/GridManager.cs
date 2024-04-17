@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [System.Serializable]
 public class GridManager
@@ -11,9 +10,6 @@ public class GridManager
 
     [SerializeField]
     private Vector2 _gridDimensionsHalf;
-
-    [SerializeField]
-    private UnityEvent<Vector2Int> _onGridSizeUpdated;
 
 #if UNITY_EDITOR
     [SerializeField]
@@ -29,6 +25,7 @@ public class GridManager
     #endregion
 
     #region PRIVATE_FIELDS
+    private GameEvents _gameEvents;
     private List<Vector3> _gridPosition;
     private Vector3 _gridStart;
     private float cardscale;
@@ -38,12 +35,13 @@ public class GridManager
     #endregion
 
     #region PUBLIC_FUNCTIONS
-    public void Init()
+    public void Init(GameEvents gameEvents)
     {
+        _gameEvents = gameEvents;
         cachedMainCam = Camera.main;
         _gridPosition = new List<Vector3>();
         GenerateGridStartPoint(out cardscale);
-        _onGridSizeUpdated?.Invoke(_gridSize);
+        _gameEvents.OnGridSizeUpdated?.Invoke(_gridSize);
     }
 
     public Vector3 GetGridPosition()
@@ -81,7 +79,7 @@ public class GridManager
 
             GenerateGridStartPoint(out cardscale);
 
-            _onGridSizeUpdated?.Invoke(_gridSize);
+            _gameEvents.OnGridSizeUpdated?.Invoke(_gridSize);
         }
     }
     #endregion

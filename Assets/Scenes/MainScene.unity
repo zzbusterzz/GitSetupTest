@@ -509,6 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1581ef16240143940939c07bd1d167d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameEvents: {fileID: 11400000, guid: d8af5c29cba5e9f418889d6886dbce54, type: 2}
   _menuPanel: {fileID: 2108082780}
   _gamePanel: {fileID: 1668794644}
   _settingsPanel: {fileID: 2010317701}

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     #region SERIALISED_FIELDS
+    [SerializeField]
+    private GameEvents _gameEvents;
+
     [SerializeField]
     private Card _cardPrefab;
 
@@ -16,26 +18,6 @@ public class GameManager : MonoBehaviour
     private float _visibilityDuration = 4;
     [SerializeField]
     private float _gameTimer = 60;
-
-    [SerializeField]
-    private UnityEvent OnGameBegan;
-    [SerializeField]
-    private UnityEvent OnVictory;
-    [SerializeField]
-    private UnityEvent OnLose;
-
-    [SerializeField]
-    private UnityEvent OnCorrectGuess;
-    [SerializeField]
-    private UnityEvent OnWrongGuess;
-
-    [SerializeField]
-    private UnityEvent<int> OnScoreUpdated;
-    [SerializeField]
-    private UnityEvent<float> OnTimerUpdated;
-
-    [SerializeField]
-    private UnityEvent<bool> IsGameDataAvailable;
     #endregion
 
     #region PRIVATE_FIELDS
@@ -56,14 +38,14 @@ public class GameManager : MonoBehaviour
     {
         _persistanceManager = new PersistanceManager();
         _cardManager = new CardManager();
-        IsGameDataAvailable?.Invoke(_persistanceManager.HasGame());
+        _gameEvents.IsGameDataAvailable?.Invoke(_persistanceManager.HasGame());
     }
 
     private void Start()
     {
         Card.CurrentCardOpened += OnCardOpen;
         _cardManager.Init(_cardPrefab);
-        _gridManager.Init();
+        _gridManager.Init(_gameEvents);
     }
 
     private void OnDestroy()
@@ -78,11 +60,11 @@ public class GameManager : MonoBehaviour
             if(_currentTimer > 0)
             {
                 _currentTimer -= Time.deltaTime;
-                OnTimerUpdated?.Invoke(_currentTimer);
+                _gameEvents.OnTimerUpdated?.Invoke(_currentTimer);
             }
             else
             {
-                OnTimerUpdated?.Invoke(0);
+                _gameEvents.OnTimerUpdated?.Invoke(0);
                 _isGameOnGoing = false;
                 Loss();
             }
@@ -105,8 +87,8 @@ public class GameManager : MonoBehaviour
             _delayedHideCoroutine = StartCoroutine(HideCardsAfterDelay());
             _currentTimer = _gameTimer;
             _pairStreak = 0;
-            OnTimerUpdated?.Invoke(_currentTimer);
-            OnGameBegan.Invoke();
+            _gameEvents.OnTimerUpdated?.Invoke(_currentTimer);
+            _gameEvents.OnGameBegan.Invoke();
         }
         else
         {
@@ -156,7 +138,7 @@ public class GameManager : MonoBehaviour
 
         while(numbers.Count < uniqueCardsToGen) 
         {
-            numbers.Add(Random.Range(0, 52));
+            numbers.Add(UnityEngine.Random.Range(0, 52));
         }
 
         foreach (int number in numbers)
@@ -191,12 +173,12 @@ public class GameManager : MonoBehaviour
         {
             if (_previousClickedCard.CurentCardIndex == currCard.CurentCardIndex)
             {
-                OnCorrectGuess?.Invoke();
+                _gameEvents.OnCorrectGuess?.Invoke();
                 //Players score will keep on increasing as and when the streak continues
                 //This will be the player bonus
                 _score += 1 + _pairStreak;
                 _pairStreak++;
-                OnScoreUpdated?.Invoke(_score);
+                _gameEvents.OnScoreUpdated?.Invoke(_score);
 
                 _cardManager.ReturnAlongWithActiveCardList(currCard);
                 _cardManager.ReturnAlongWithActiveCardList(_previousClickedCard);
@@ -209,7 +191,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 _pairStreak = 0;
-                OnWrongGuess?.Invoke();
+                _gameEvents.OnWrongGuess?.Invoke();
                 _previousClickedCard.HideCard();
                 currCard.HideCard();
             }
@@ -245,7 +227,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Victory()
     {
-        OnVictory.Invoke();
+        _gameEvents.OnVictory.Invoke();
     }
 
     /// <summary>
@@ -254,7 +236,7 @@ public class GameManager : MonoBehaviour
     private void Loss()
     {
         _cardManager.ClearActiveCards();
-        OnLose.Invoke();
+        _gameEvents.OnLose.Invoke();
     }
 
     private void ClearCurrentData()
@@ -287,7 +269,7 @@ public class GameManager : MonoBehaviour
                                      _gridManager.Cardscale,
                                      _isGameOnGoing);
 
-        IsGameDataAvailable?.Invoke(true);
+        _gameEvents.IsGameDataAvailable?.Invoke(true);
     }
 
     public void LoadGame()
@@ -312,8 +294,8 @@ public class GameManager : MonoBehaviour
             _pairStreak = levelStorage.PairStreak;
             _currentTimer = levelStorage.CurrentTimer;
             _isGameOnGoing = levelStorage.IsGameOnGoing;
-            OnScoreUpdated?.Invoke(_score);
-            OnGameBegan.Invoke();
+            _gameEvents.OnScoreUpdated?.Invoke(_score);
+            _gameEvents.OnGameBegan.Invoke();
         }
 
     }

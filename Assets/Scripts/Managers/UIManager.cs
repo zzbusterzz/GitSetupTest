@@ -1,10 +1,12 @@
-using System.Numerics;
 using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     #region SERIALISED_FIELDS
+    [SerializeField]
+    private GameEvents _gameEvents;
+
     [SerializeField]
     private GameObject _menuPanel;
     [SerializeField]
@@ -34,8 +36,30 @@ public class UIManager : MonoBehaviour
     #endregion
 
     private bool _isGameToLoadAvailable = false;
-    private Vector2Int _curentGridSize; 
+    private Vector2Int _curentGridSize;
     #region UNITY_FUNCTIONS
+    private void Awake()
+    {
+        _gameEvents.OnGameBegan += OnGameStartOrLoad;
+        _gameEvents.OnVictory += OnGameWon;
+        _gameEvents.OnLose += OnGameLost;
+        _gameEvents.OnScoreUpdated += OnScoreUpdated;
+        _gameEvents.OnTimerUpdated += OnTimerUpdated;
+        _gameEvents.IsGameDataAvailable += SetLoadgameButtonStatus;
+        _gameEvents.OnGridSizeUpdated += UpdateGridSize;
+    }
+
+    private void OnDestroy()
+    {
+        _gameEvents.OnGameBegan -= OnGameStartOrLoad;
+        _gameEvents.OnVictory -= OnGameWon;
+        _gameEvents.OnLose -= OnGameLost;
+        _gameEvents.OnScoreUpdated -= OnScoreUpdated;
+        _gameEvents.OnTimerUpdated -= OnTimerUpdated;
+        _gameEvents.IsGameDataAvailable -= SetLoadgameButtonStatus;
+        _gameEvents.OnGridSizeUpdated -= UpdateGridSize;
+    }
+
     private void Start()
     {
         _gamePanel.SetActive(false);

@@ -47,97 +47,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc77aad469db984882a9c260a106a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameEvents: {fileID: 11400000, guid: d8af5c29cba5e9f418889d6886dbce54, type: 2}
   _cardPrefab: {fileID: 8714813683635605138, guid: 17fae3004faff6741aa1cef10284f1d3, type: 3}
   _gridManager:
     _gridSize: {x: 4, y: 4}
     _gridDimensionsHalf: {x: 0.6, y: 0.85}
+    _onGridSizeUpdated:
+      m_PersistentCalls:
+        m_Calls: []
     _generateDebugTransformForGridPoint: 0
   _visibilityDuration: 4
   _gameTimer: 60
-  OnGameBegan:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2089814478620671764}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: OnGameBegan
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnVictory:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2089814478620671764}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: OnVictory
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnLose:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2089814478620671764}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: OnLose
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnCorrectGuess:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2089814478620671764}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayCardPairSuccess
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnWrongGuess:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2089814478620671764}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayCardPairedFail
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnScoreUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTimerUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  IsGameDataAvailable:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2089814478620671764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed201cedf39a78c4dbfa1d61340aac75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameEvents: {fileID: 11400000, guid: d8af5c29cba5e9f418889d6886dbce54, type: 2}
   _cardFlip: {fileID: 2089814478620671754}
   _bgMusic: {fileID: 2089814478620671755}
   _audioData: {fileID: 11400000, guid: 90a0051db273647439ea6eefe88b3cce, type: 2}
