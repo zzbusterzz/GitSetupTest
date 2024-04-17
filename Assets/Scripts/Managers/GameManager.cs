@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     private Card _cardPrefab;
 
     [SerializeField]
+    private CardData _cardResourceData;
+
+    [SerializeField]
     private GridManager _gridManager;
 
     [SerializeField]
@@ -136,23 +139,27 @@ public class GameManager : MonoBehaviour
 
         HashSet<int> numbers = new HashSet<int>();
 
-        while(numbers.Count < uniqueCardsToGen) 
+        int totalAvailCards = _cardResourceData.CardSprites.Length;
+        while (numbers.Count < uniqueCardsToGen) 
         {
+<<<<<<< HEAD
             numbers.Add(UnityEngine.Random.Range(0, 52));
+=======
+            numbers.Add(Random.Range(0, totalAvailCards));
+>>>>>>> e23280ed7f09227a075baaa01e15c640b7ddfda7
         }
 
         foreach (int number in numbers)
         {
-            int xOffset = number % (Constants.MaxAllowedCards.x - 1);
-            int yOffset = Mathf.FloorToInt(number / Constants.MaxAllowedCards.x);
+            Sprite cardSprite = _cardResourceData.CardSprites[number];
 
             Vector3 pos = _gridManager.GetGridPosition();
             Card c = _cardManager.GetCardInstance(pos, _gridManager.Cardscale);
-            Material mat = c.SetOffset(xOffset, yOffset, number);
+            c.SetOffset(cardSprite, number);
 
             pos = _gridManager.GetGridPosition();
             c = _cardManager.GetCardInstance(pos, _gridManager.Cardscale);
-            c.SetMatInstance(mat, number);
+            c.SetOffset(cardSprite, number);
         }
     }
 
@@ -282,11 +289,9 @@ public class GameManager : MonoBehaviour
 
             for (int i = 0; i < levelStorage.CardID.Length; i++)
             {
-                int xOffset = levelStorage.CardID[i] % (Constants.MaxAllowedCards.x - 1);
-                int yOffset = Mathf.FloorToInt(levelStorage.CardID[i] / Constants.MaxAllowedCards.x);
-
                 Card c = _cardManager.GetCardInstance(levelStorage.CardPositions[i], _gridManager.Cardscale);
-                c.SetOffset(xOffset, yOffset, levelStorage.CardID[i]);
+                int number = levelStorage.CardID[i];
+                c.SetOffset(_cardResourceData.CardSprites[number], number);
                 c.HideCardInstant();
             }
 

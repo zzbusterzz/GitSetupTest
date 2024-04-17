@@ -4,14 +4,14 @@ public class PersistanceManager
 {
     public bool HasGame()
     {
-        return PlayerPrefs.HasKey(Constants.key);
+        return PlayerPrefs.HasKey(Constants.Key);
     }
 
     public LevelStorage LoadGame()
     {
         if(HasGame())
         {
-            return JsonUtility.FromJson<LevelStorage>(PlayerPrefs.GetString(Constants.key));
+            return JsonUtility.FromJson<LevelStorage>(PlayerPrefs.GetString(Constants.Key));
         }
         return null;
     }
@@ -34,7 +34,7 @@ public class PersistanceManager
         levelStorage.IsGameOnGoing = isGameOngoing;
         levelStorage.CardScale = cardScale;
 
-        PlayerPrefs.SetString(Constants.key, JsonUtility.ToJson(levelStorage));
+        PlayerPrefs.SetString(Constants.Key, JsonUtility.ToJson(levelStorage));
         PlayerPrefs.Save();
     }
 }
