@@ -142,11 +142,7 @@ public class GameManager : MonoBehaviour
         int totalAvailCards = _cardResourceData.CardSprites.Length;
         while (numbers.Count < uniqueCardsToGen) 
         {
-<<<<<<< HEAD
-            numbers.Add(UnityEngine.Random.Range(0, 52));
-=======
-            numbers.Add(Random.Range(0, totalAvailCards));
->>>>>>> e23280ed7f09227a075baaa01e15c640b7ddfda7
+            numbers.Add(UnityEngine.Random.Range(0, totalAvailCards));
         }
 
         foreach (int number in numbers)

@@ -11,15 +11,9 @@ public class GridManager
     [SerializeField]
     private Vector2 _gridDimensionsHalf;
 
-<<<<<<< HEAD
-=======
     [SerializeField]
     private Vector2 _padding;
 
-    [SerializeField]
-    private UnityEvent<Vector2Int> _onGridSizeUpdated;
-
->>>>>>> e23280ed7f09227a075baaa01e15c640b7ddfda7
 #if UNITY_EDITOR
     [SerializeField]
     private bool _generateDebugTransformForGridPoint;
@@ -54,13 +48,7 @@ public class GridManager
     #region PUBLIC_FUNCTIONS
     public void Init(GameEvents gameEvents)
     {
-<<<<<<< HEAD
         _gameEvents = gameEvents;
-        cachedMainCam = Camera.main;
-        _gridPosition = new List<Vector3>();
-        GenerateGridStartPoint(out cardscale);
-        _gameEvents.OnGridSizeUpdated?.Invoke(_gridSize);
-=======
         _cachedMainCam = Camera.main;
         _gridPosition = new ();
 
@@ -69,8 +57,7 @@ public class GridManager
         _avilAreaWidth = Screen.width - _xPoint;
 
         GenerateGridStartPoint(out _cardscale);
-        _onGridSizeUpdated?.Invoke(_gridSize);
->>>>>>> e23280ed7f09227a075baaa01e15c640b7ddfda7
+        _gameEvents.OnGridSizeUpdated?.Invoke(_gridSize);
     }
 
     public Vector3 GetGridPosition()
